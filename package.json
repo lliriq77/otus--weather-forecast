@@ -6,8 +6,8 @@
   "scripts": {
     "build": "webpack build --node-env production",
     "test": "jest",
-    "lint": "prettier --check . && eslint .",
-    "lint:fix": "prettier --write . && eslint . --fix",
+    "lint": "prettier --check .",
+    "lint:fix": "prettier --write .",
     "prepare": "husky install",
     "dev": "webpack serve --open"
   },
