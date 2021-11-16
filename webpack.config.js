@@ -8,8 +8,8 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 module.exports = {
   entry: resolve(__dirname, "./src/index.js"),
   output: {
-    filename: 'bundle.js',
-    path: resolve(`${__dirname  }/dist`),
+    filename: "bundle.js",
+    path: resolve(`${__dirname}/dist`),
     clean: true,
     environment: {
       arrowFunction: false,
