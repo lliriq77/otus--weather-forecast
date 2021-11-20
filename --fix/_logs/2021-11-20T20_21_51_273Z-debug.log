@@ -1,0 +1,35 @@
+0 info it worked if it ends with ok
+1 verbose cli [
+1 verbose cli   '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'run',
+1 verbose cli   'eslint',
+1 verbose cli   '--cache',
+1 verbose cli   '--fix'
+1 verbose cli ]
+2 info using npm@6.14.15
+3 info using node@v14.18.1
+4 verbose stack Error: missing script: eslint
+4 verbose stack
+4 verbose stack Did you mean this?
+4 verbose stack     lint
+4 verbose stack     at run (/usr/local/lib/node_modules/npm/lib/run-script.js:155:19)
+4 verbose stack     at /usr/local/lib/node_modules/npm/lib/run-script.js:63:5
+4 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:116:5
+4 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:436:5
+4 verbose stack     at checkBinReferences_ (/usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:391:45)
+4 verbose stack     at final (/usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:434:3)
+4 verbose stack     at then (/usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:161:5)
+4 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:382:12
+4 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/graceful-fs/graceful-fs.js:123:16
+4 verbose stack     at FSReqCallback.readFileAfterClose [as oncomplete] (internal/fs/read_file_context.js:71:3)
+5 verbose cwd /Users/LLIRIQ/otus--weather-forecast
+6 verbose Darwin 20.6.0
+7 verbose argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "eslint" "--cache" "--fix"
+8 verbose node v14.18.1
+9 verbose npm  v6.14.15
+10 error missing script: eslint
+10 error
+10 error Did you mean this?
+10 error     lint
+11 verbose exit [ 1, true ]
