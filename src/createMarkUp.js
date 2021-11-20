@@ -23,13 +23,13 @@ export async function createMurkUp(el) {
   }
 
   async function getWeather() {
-    const url = `http://api.openweathermap.org/data/2.5/forecast?q=${input.value}&units=metric&appid=92dae48bac98a7191c6227716a76ac12`;
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${input.value}&units=metric&appid=92dae48bac98a7191c6227716a76ac12`;
     const response = await fetch(url);
     const weather = await response.json();
     const temp = weather.list[0].main.temp.toFixed(0);
     const city = weather.city.name;
-    const {icon} = weather.list[0].weather[0];
-    const image = `<image src=http://openweathermap.org/img/wn/${icon}@2x.png>`;
+    const { icon } = weather.list[0].weather[0];
+    const image = `<image src=https://openweathermap.org/img/wn/${icon}@2x.png>`;
     history.push(city);
     saveHistory(history);
     drawHistory(hist, history);
