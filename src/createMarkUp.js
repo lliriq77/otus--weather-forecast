@@ -33,7 +33,6 @@ export async function createMurkUp(el) {
 
   async function buttonEvent() {
     await getWeather();
-    // console.log(weather);
     temp = weather.list[0].main.temp.toFixed(0);
     city = weather.city.name;
     icon = weather.list[0].weather[0].icon;
@@ -51,7 +50,7 @@ export async function createMurkUp(el) {
   let weather = await getWeather();
   let temp = weather.list[0].main.temp.toFixed(0);
   let city = weather.city.name;
-  let {icon} = weather.list[0].weather[0];
+  let { icon } = weather.list[0].weather[0];
   let image = `<image src=https://openweathermap.org/img/wn/${icon}@2x.png>`;
   rslt.innerHTML = `${city} ${temp}°C ${image}`;
 
