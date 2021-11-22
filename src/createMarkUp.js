@@ -36,9 +36,10 @@ export async function createMurkUp(el) {
     await getWeather();
     temp = weather.list[0].main.temp.toFixed(0);
     city = weather.city.name;
+    coord = `${weather.city.coord.lat},${weather.city.coord.lon}`;
     icon = weather.list[0].weather[0].icon;
     image = `<image src=https://openweathermap.org/img/wn/${icon}@2x.png>`;
-    mapsUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${city}&zoom=10&size=500x200&key=${mapsApiKey}`;
+    mapsUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${coord}&zoom=10&size=500x200&key=${mapsApiKey}`;
     history.push(city);
     saveHistory(history);
     drawHistory(hist, history);
@@ -51,7 +52,8 @@ export async function createMurkUp(el) {
   const localCityResponse = await fetch("https://get.geojs.io/v1/ip/geo.json");
   const localCity = await localCityResponse.json();
   const mapsApiKey = "AIzaSyB8_RK8kYbWmDytZkHkg94OyqDtYVk5lGM";
-  let mapsUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${localCity.city}&zoom=10&size=500x200&key=${mapsApiKey}`;
+  let coord = `${localCity.latitude},${localCity.longitude}`;
+  let mapsUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${coord}&zoom=10&size=500x200&key=${mapsApiKey}`;
   map.innerHTML = `<image src=${mapsUrl}>`;
   let weather = await getWeather();
   let temp = weather.list[0].main.temp.toFixed(0);
