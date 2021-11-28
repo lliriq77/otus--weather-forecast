@@ -1,3 +1,3 @@
-import { createMurkUp } from "./createMarkUp";
+import { createMarkUp } from "./createMarkUp";
 
-createMurkUp(document.querySelector("div"));
+createMarkUp(document.querySelector("div"));

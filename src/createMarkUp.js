@@ -1,4 +1,9 @@
-export async function createMurkUp(el) {
+import { readHistory } from "./readHistory";
+import { saveHistory } from "./saveHistory";
+import { drawHistory } from "./drawHistory";
+import { getWeather } from "./getWeather";
+
+export async function createMarkUp(el) {
   el.innerHTML = `
 <input id='input'>
 <button id='button'>Get weather</button>
@@ -6,33 +11,9 @@ export async function createMurkUp(el) {
 <div id='map' style=""></div>
 <div id='hist'style=""></div>
 `;
-  async function readHistory() {
-    const history = localStorage.getItem("history");
-    return JSON.parse(history) ?? [];
-  }
-
-  function saveHistory(arr) {
-    if (arr.length > 10) arr.shift();
-    localStorage.setItem("history", JSON.stringify(arr));
-  }
-
-  function drawHistory(elTwo, arr) {
-    elTwo.innerHTML = `HISTORY:${arr
-      .map((item) => `<span style="margin: 2px;">${item}</span>`)
-      .reverse()
-      .join("")}`;
-  }
-
-  async function getWeather(inputValue) {
-    const apiKey = "92dae48bac98a7191c6227716a76ac12";
-    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${inputValue}&units=metric&appid=${apiKey}`;
-    const response = await fetch(url);
-    weather = await response.json();
-    return weather;
-  }
 
   async function buttonEvent(e) {
-    await getWeather(input.value || e.target.innerHTML);
+    weather = await getWeather(input.value || e.target.innerHTML);
     temp = weather.list[0].main.temp.toFixed(0);
     city = weather.city.name;
     coord = `${weather.city.coord.lat},${weather.city.coord.lon}`;
