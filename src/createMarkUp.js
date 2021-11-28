@@ -31,8 +31,8 @@ export async function createMurkUp(el) {
     return weather;
   }
 
-  async function buttonEvent() {
-    await getWeather(input.value || event.target.innerHTML);
+  async function buttonEvent(e) {
+    await getWeather(input.value || e.target.innerHTML);
     temp = weather.list[0].main.temp.toFixed(0);
     city = weather.city.name;
     coord = `${weather.city.coord.lat},${weather.city.coord.lon}`;
@@ -45,14 +45,6 @@ export async function createMurkUp(el) {
     map.innerHTML = `<image src=${mapsUrl}>`;
     rslt.innerHTML = `${city} ${temp}°C ${image}`;
     input.value = "";
-  }
-
-  function mouseHandler() {
-    const result =
-      Event.type === "mouseover" && Event.target.localName === "span"
-        ? (Event.target.style.background = "lightgray")
-        : (Event.target.style.background = "white");
-    return result;
   }
 
   let history = await readHistory();
@@ -70,10 +62,14 @@ export async function createMurkUp(el) {
   rslt.innerHTML = `${city} ${temp}°C ${image}`;
   drawHistory(hist, history);
   button.addEventListener("click", buttonEvent);
-  hist.addEventListener("click", () => {
-    getWeather(event.target.innerHTML);
-    buttonEvent();
+  hist.addEventListener("click", (e) => {
+    getWeather(e.target.innerHTML);
+    buttonEvent(e);
   });
-  hist.addEventListener("mouseover", mouseHandler);
-  hist.addEventListener("mouseout", mouseHandler);
+  hist.addEventListener("mouseover", (e) => {
+    if (e.target.localName === "span") e.target.style.background = "lightgray";
+  });
+  hist.addEventListener("mouseout", (e) => {
+    if (e.target.localName === "span") e.target.style.background = "white";
+  });
 }
