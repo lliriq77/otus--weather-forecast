@@ -9,7 +9,6 @@ describe("createMarkUp", () => {
     expect(document.body.querySelectorAll("input").length).toBe(1);
   });
   it("has one button", () => {
-    console.log(document.body);
     expect(document.body.querySelectorAll("button").length).toBe(1);
   });
   /* it('shows local weather', () => {
