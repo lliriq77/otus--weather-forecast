@@ -1,10 +1,10 @@
 import { readHistory } from "./readHistory";
 
 describe("readHistory", () => {
-  it("recieves history list", () => {
+  it("recieves history list", async () => {
     jest.spyOn(Object.getPrototypeOf(window.localStorage), "getItem");
-    readHistory();
+    const result = await readHistory();
     expect(localStorage.getItem).toHaveBeenCalled();
-    expect(readHistory()).toBeInstanceOf(Object);
+    expect(result).toBeInstanceOf(Object);
   });
 });
