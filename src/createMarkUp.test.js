@@ -1,6 +1,8 @@
 import { createMarkUp } from "./createMarkUp";
 
 describe("createMarkUp", () => {
+  const saveFetch = global.fetch;
+  const saveLocalStorage = global.localStorage;
   global.fetch = jest.fn(() =>
     Promise.resolve({
       json() {
@@ -18,11 +20,42 @@ describe("createMarkUp", () => {
       },
     })
   );
+
+  class LocalStorageMock {
+    constructor() {
+      this.store = {};
+    }
+
+    clear() {
+      this.store = {};
+    }
+
+    getItem(key) {
+      return this.store[key] || null;
+    }
+
+    setItem(key, value) {
+      this.store[key] = value;
+    }
+
+    removeItem(key) {
+      delete this.store[key];
+    }
+  }
+
+  global.localStorage = new LocalStorageMock();
+  const el = document.createElement("div");
+  document.body.append(el);
+
   beforeAll(async () => {
-    const el = document.createElement("div");
-    document.body.append(el);
     await createMarkUp(el);
   });
+
+  afterAll(() => {
+    global.fetch = saveFetch;
+    global.localStorage = saveLocalStorage;
+  });
+
   it("is a function", () => {
     expect(createMarkUp).toBeInstanceOf(Function);
   });
@@ -40,5 +73,13 @@ describe("createMarkUp", () => {
   });
   it("has history", () => {
     expect(!!hist).toBe(true);
+  });
+  it("saves only last 10 requests at localStora", async () => {
+    /* eslint-disable no-await-in-loop */
+    for (let i = 0; i <= 15; i += 1) {
+      await button.click();
+    }
+    /* eslint-enable no-await-in-loop */
+    expect(el.querySelectorAll("span").length).toBe(10);
   });
 });

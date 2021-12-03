@@ -4,13 +4,12 @@ import { drawHistory } from "./drawHistory";
 import { getWeather } from "./getWeather";
 
 export async function createMarkUp(el) {
-  // try {
   el.innerHTML = `
 <input id='input'>
 <button id='button'>Get weather</button>
 <div id='rslt'style="font-size: 40px;"></div>
 <div id='map' style=""></div>
-<div id='hist'style=""></div>
+<div id='hist' style=""></div>
 `;
 
   async function buttonEvent(e) {
@@ -54,7 +53,4 @@ export async function createMarkUp(el) {
   hist.addEventListener("mouseout", (e) => {
     if (e.target.localName === "span") e.target.style.background = "white";
   });
-  /* } catch (e) {
-     console.log(e);
-   } */
 }
