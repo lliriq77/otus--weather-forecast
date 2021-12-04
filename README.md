@@ -1,6 +1,6 @@
 # Приложение "Прогноз погоды"
 
-![Code Coverage](https://img.shields.io/github/workflow/status/lliriq77/otus--weather-forecast/coverage)
+![Coverage](https://github.com/lliriq77/otus--weather-forecast/actions/workflows/coverage.yml/badge.svg)
 
 1. при открытии страницы пользователь видит погоду (город, температуру и иконку) в своей местности
 2. он может ввести имя города в поле ввода и увидеть погоду в выбранном городе
