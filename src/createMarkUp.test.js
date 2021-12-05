@@ -69,6 +69,7 @@ describe("createMarkUp", () => {
     expect(rslt.innerHTML).toMatch(/Moscow/);
   });
   it("has map", () => {
+    console.log(map.innerHTML);
     expect(!!map).toBe(true);
   });
   it("has history", () => {
@@ -82,12 +83,20 @@ describe("createMarkUp", () => {
     /* eslint-enable no-await-in-loop */
     expect(el.querySelectorAll("span").length).toBe(10);
   });
-  it("changes background color on mouseover", () => {
+  it("changes background color to lightgray on mouseover", () => {
     el.querySelector("span").dispatchEvent(
-      new Event("mouseover", {
+      new MouseEvent("mouseover", {
         bubbles: true,
       })
     );
     expect(el.querySelector("span").style.background).toBe("lightgray");
+  });
+  it("changes background color to white on mouseout", () => {
+    el.querySelector("span").dispatchEvent(
+      new MouseEvent("mouseout", {
+        bubbles: true,
+      })
+    );
+    expect(el.querySelector("span").style.background).toBe("white");
   });
 });
