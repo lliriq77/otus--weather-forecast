@@ -82,4 +82,12 @@ describe("createMarkUp", () => {
     /* eslint-enable no-await-in-loop */
     expect(el.querySelectorAll("span").length).toBe(10);
   });
+  it("changes background color on mouseover", () => {
+    el.querySelector("span").dispatchEvent(
+      new Event("mouseover", {
+        bubbles: true,
+      })
+    );
+    expect(el.querySelector("span").style.background).toBe("lightgray");
+  });
 });
