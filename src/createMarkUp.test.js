@@ -1,4 +1,5 @@
 import { createMarkUp } from "./createMarkUp";
+import { sleep } from "./sleep";
 
 describe("createMarkUp", () => {
   const saveFetch = global.fetch;
@@ -44,8 +45,9 @@ describe("createMarkUp", () => {
   }
 
   global.localStorage = new LocalStorageMock();
-  const el = document.createElement("div");
-  document.body.append(el);
+  const div = document.createElement("div");
+  document.body.append(div);
+  const el = document.querySelector("div");
 
   beforeAll(async () => {
     await createMarkUp(el);
@@ -60,29 +62,31 @@ describe("createMarkUp", () => {
     expect(createMarkUp).toBeInstanceOf(Function);
   });
   it("has one input", () => {
-    expect(document.body.querySelectorAll("input").length).toBe(1);
+    expect(el.querySelectorAll("input").length).toBe(1);
   });
   it("has one button", () => {
-    expect(document.body.querySelectorAll("button").length).toBe(1);
+    expect(el.querySelectorAll("button").length).toBe(1);
   });
   it("shows local weather", () => {
     expect(rslt.innerHTML).toMatch(/Moscow/);
   });
   it("has map", () => {
-    console.log(map.innerHTML);
     expect(!!map).toBe(true);
   });
   it("has history", () => {
     expect(!!hist).toBe(true);
   });
-  it("saves only last 10 requests at localStora", async () => {
+  it("saves last 10 localStorage requests", async () => {
+    rslt.innerHTML = "";
     /* eslint-disable no-await-in-loop */
-    for (let i = 0; i <= 15; i += 1) {
-      await button.click();
+    for (let i = 0; i <= 20; i += 1) {
+      button.click();
+      await sleep();
     }
     /* eslint-enable no-await-in-loop */
     expect(el.querySelectorAll("span").length).toBe(10);
   });
+
   it("changes background color to lightgray on mouseover", () => {
     el.querySelector("span").dispatchEvent(
       new MouseEvent("mouseover", {
@@ -91,6 +95,7 @@ describe("createMarkUp", () => {
     );
     expect(el.querySelector("span").style.background).toBe("lightgray");
   });
+
   it("changes background color to white on mouseout", () => {
     el.querySelector("span").dispatchEvent(
       new MouseEvent("mouseout", {
@@ -98,5 +103,16 @@ describe("createMarkUp", () => {
       })
     );
     expect(el.querySelector("span").style.background).toBe("white");
+  });
+
+  it("shows current weather in history city after mouse click", async () => {
+    rslt.innerHTML = "";
+    el.querySelector("span").dispatchEvent(
+      new MouseEvent("click", {
+        bubbles: true,
+      })
+    );
+    await sleep();
+    expect(rslt.innerHTML).toMatch(/Moscow/);
   });
 });

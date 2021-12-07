@@ -7,7 +7,7 @@ export async function createMarkUp(el) {
   el.innerHTML = `
 <input id='input'>
 <button id='button'>Get weather</button>
-<div id='rslt'style="font-size: 40px;"></div>
+<div id='rslt' style="font-size: 40px;"></div>
 <div id='map' style=""></div>
 <div id='hist' style=""></div>
 `;
@@ -44,7 +44,6 @@ export async function createMarkUp(el) {
   drawHistory(hist, history);
   button.addEventListener("click", buttonEvent);
   hist.addEventListener("click", async (e) => {
-    await getWeather(e.target.innerHTML);
     buttonEvent(e);
   });
   hist.addEventListener("mouseover", (e) => {
