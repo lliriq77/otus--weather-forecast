@@ -1,0 +1,1 @@
+{"version":3,"file":"main.css","mappings":"AAAA,KACE,qBACF","sources":["webpack://otus--weather-forecast/./src/styles/style.css"],"sourcesContent":["body {\n  background-color: white;\n}\n"],"names":[],"sourceRoot":""}
