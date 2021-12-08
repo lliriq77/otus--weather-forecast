@@ -5,50 +5,84 @@ import { getWeather } from "./getWeather";
 
 export async function createMarkUp(el) {
   el.innerHTML = `
-<input id='input'>
-<button id='button'>Get weather</button>
-<div id='rslt' style="font-size: 40px;"></div>
-<div id='map' style=""></div>
-<div id='hist' style=""></div>
+<input>
+<button>Get weather</button>
+<div></div>
+<div></div>
+<div></div>
 `;
 
   async function buttonEvent(e) {
-    weather = await getWeather(input.value || e.target.innerHTML);
-    temp = weather.main.temp.toFixed(0);
-    city = weather.name;
-    coord = `${weather.coord.lat},${weather.coord.lon}`;
-    icon = weather.weather[0].icon;
-    image = `<image src=https://openweathermap.org/img/wn/${icon}@2x.png>`;
-    mapsUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${coord}&zoom=10&size=500x200&key=${mapsApiKey}`;
-    history.push(city);
-    saveHistory(history);
-    drawHistory(hist, history);
-    map.innerHTML = `<image src=${mapsUrl}>`;
-    rslt.innerHTML = `${city} ${temp}°C ${image}`;
-    input.value = "";
+    try {
+      const weather = await getWeather(input.value || e.target.innerHTML);
+
+      if (weather) {
+        const temp = weather.main.temp.toFixed(0);
+        const city = weather.name;
+        const coord = `${weather.coord.lat},${weather.coord.lon}`;
+        const { icon } = weather.weather[0];
+        const image = `<image src=https://openweathermap.org/img/wn/${icon}@2x.png>`;
+        const mapsUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${coord}&zoom=10&size=500x200&key=${mapsApiKey}`;
+        history.push(city);
+        saveHistory(history);
+        drawHistory(hist, history);
+        map.innerHTML = `<image src=${mapsUrl}>`;
+        rslt.innerHTML = `${city} ${temp}°C ${image}`;
+        input.value = "";
+      } else {
+        input.value = "";
+        throw new Error("Empty weather object");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 
+  const input = el.querySelector("input");
+  const button = el.querySelector("button");
+  const rslt = el.querySelectorAll("div")[0];
+  const map = el.querySelectorAll("div")[1];
+  const hist = el.querySelectorAll("div")[2];
+  let mapsApiKey = "AIzaSyB8_RK8kYbWmDytZkHkg94OyqDtYVk5lGM";
   let history = await readHistory();
-  const localCityResponse = await fetch("https://get.geojs.io/v1/ip/geo.json");
-  const localCity = await localCityResponse.json();
-  const mapsApiKey = "AIzaSyB8_RK8kYbWmDytZkHkg94OyqDtYVk5lGM";
-  let coord = `${localCity.latitude},${localCity.longitude}`;
-  let mapsUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${coord}&zoom=10&size=500x200&key=${mapsApiKey}`;
-  map.innerHTML = `<image src=${mapsUrl}>`;
-  let weather = await getWeather(localCity.city);
-  let temp = weather.main.temp.toFixed(0);
-  let city = weather.name;
-  let { icon } = weather.weather[0];
-  let image = `<image src=https://openweathermap.org/img/wn/${icon}@2x.png>`;
-  rslt.innerHTML = `${city} ${temp}°C ${image}`;
-  drawHistory(hist, history);
+
+  try {
+    const localCityResponse = await fetch(
+      "https://get.geojs.io/v1/ip/geo.json"
+    );
+
+    if (localCityResponse.ok) {
+      const localCity = await localCityResponse.json();
+
+      const coord = `${localCity.latitude},${localCity.longitude}`;
+      const mapsUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${coord}&zoom=10&size=500x200&key=${mapsApiKey}`;
+      map.innerHTML = `<image src=${mapsUrl}>`;
+
+      const weather = await getWeather(localCity.city);
+      const temp = weather.main.temp.toFixed(0);
+      const city = weather.name;
+      const { icon } = weather.weather[0];
+      const image = `<image src=https://openweathermap.org/img/wn/${icon}@2x.png>`;
+
+      rslt.innerHTML = `${city} ${temp}°C ${image}`;
+      drawHistory(hist, history);
+    } else {
+      throw new Error("https://get.geojs.io/v1/ip/geo.json OUT OF REACH");
+    }
+  } catch (err) {
+    console.log(err);
+  }
+
   button.addEventListener("click", buttonEvent);
+
   hist.addEventListener("click", async (e) => {
     buttonEvent(e);
   });
+
   hist.addEventListener("mouseover", (e) => {
     if (e.target.localName === "span") e.target.style.background = "lightgray";
   });
+
   hist.addEventListener("mouseout", (e) => {
     if (e.target.localName === "span") e.target.style.background = "white";
   });
