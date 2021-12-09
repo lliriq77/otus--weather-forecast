@@ -1,1 +1,1 @@
-body{background-color:#fff}
+div{left:50%;position:fixed;top:50%;transform:translate(-50%,-50%)}div div{width:500px}div div,div input{transform:translate(-50%)}div button,div div,div input{height:auto;left:50%;position:relative}div button{transform:translate(-100%)}p{font-size:40px;height:auto;left:50%;margin:0;transform:translate(-50%);width:fit-content}p,span{position:relative}span{margin:2px}
