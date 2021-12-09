@@ -1,5 +1,7 @@
 # Приложение "Прогноз погоды"
 
+##### Домашнее задание курса **[JavaScript Developer. Basic](https://otus.ru/lessons/javascript-basic/?int_source=courses_catalog&int_term=programming)**
+
 ![Coverage](https://github.com/lliriq77/otus--weather-forecast/actions/workflows/coverage.yml/badge.svg)
 ![PR Sanity Check](https://github.com/lliriq77/otus--weather-forecast/actions/workflows/sanity-check.yml/badge.svg)
 
