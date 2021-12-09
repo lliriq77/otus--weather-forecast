@@ -27,7 +27,7 @@ export async function createMarkUp(el) {
         saveHistory(history);
         drawHistory(hist, history);
         map.innerHTML = `<image src=${mapsUrl}>`;
-        rslt.innerHTML = `${city} ${temp}°C ${image}`;
+        rslt.innerHTML = `<p>${city} ${temp}°C ${image}</p>`;
         input.value = "";
       } else {
         input.value = "";
@@ -64,7 +64,7 @@ export async function createMarkUp(el) {
       const { icon } = weather.weather[0];
       const image = `<image src=https://openweathermap.org/img/wn/${icon}@2x.png>`;
 
-      rslt.innerHTML = `${city} ${temp}°C ${image}`;
+      rslt.innerHTML = `<p>${city} ${temp}°C ${image}</p>`;
       drawHistory(hist, history);
     } else {
       throw new Error("https://get.geojs.io/v1/ip/geo.json OUT OF REACH");

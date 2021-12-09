@@ -10,7 +10,7 @@ describe("drawHistory", () => {
     drawHistory(el, arr);
 
     expect(document.querySelector("div").innerHTML).toMatch(
-      /Berlin.{30,40}Moscow/
+      /Berlin.{13}Moscow/
     );
   });
 });

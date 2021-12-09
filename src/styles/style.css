@@ -1,3 +1,42 @@
-body {
-  background-color: white;
+div {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+div div {
+  position: relative;
+  height: auto;
+  width: 500px;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+div input {
+  position: relative;
+  height: auto;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+div button {
+  position: relative;
+  height: auto;
+  left: 50%;
+  transform: translate(-100%);
+}
+
+p {
+  margin: 0px;
+  font-size: 40px;
+  position: relative;
+  height: auto;
+  width: fit-content;
+  left: 50%;
+  transform: translate(-50%);
+}
+span {
+  position: relative;
+  margin: 2px;
 }
