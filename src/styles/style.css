@@ -8,7 +8,7 @@ div {
   text-align: center;
   position: relative;
   box-sizing: border-box;
-  width: 500px;
+  max-width: 500px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
