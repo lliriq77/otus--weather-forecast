@@ -41,3 +41,7 @@ div p {
 span {
   margin: 2px;
 }
+
+span:hover {
+  background: lightgray;
+}

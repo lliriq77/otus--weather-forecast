@@ -69,24 +69,6 @@ describe("createMarkUp", () => {
     expect(el.querySelectorAll("span").length).toBe(10);
   });
 
-  it("changes background color to lightgray on mouseover", () => {
-    el.querySelectorAll("span")[0].dispatchEvent(
-      new MouseEvent("mouseover", {
-        bubbles: true,
-      })
-    );
-    expect(el.querySelectorAll("span")[0].style.background).toBe("lightgray");
-  });
-
-  it("changes background color to white on mouseout", () => {
-    el.querySelectorAll("span")[0].dispatchEvent(
-      new MouseEvent("mouseout", {
-        bubbles: true,
-      })
-    );
-    expect(el.querySelectorAll("span")[0].style.background).toBe("white");
-  });
-
   it("shows current weather in history city after mouse click", async () => {
     el.querySelector("div").innerHTML = "";
     el.querySelectorAll("span")[0].dispatchEvent(

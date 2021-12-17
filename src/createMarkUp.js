@@ -78,12 +78,4 @@ export async function createMarkUp(el) {
   hist.addEventListener("click", async (e) => {
     buttonEvent(e);
   });
-
-  hist.addEventListener("mouseover", (e) => {
-    if (e.target.localName === "span") e.target.style.background = "lightgray";
-  });
-
-  hist.addEventListener("mouseout", (e) => {
-    if (e.target.localName === "span") e.target.style.background = "white";
-  });
 }
