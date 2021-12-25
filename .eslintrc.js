@@ -9,6 +9,9 @@ module.exports = {
     ecmaVersion: 12,
   },
   rules: {
+    "no-restricted-globals": "off",
+    "no-undef": "off",
+    "no-use-before-define": "off",
     "no-param-reassign": ["error", { props: false }],
     "no-console": "off",
     "no-alert": "off",
@@ -17,6 +20,8 @@ module.exports = {
       "error",
       {
         ignoreComments: true,
+        ignoreUrls: true,
+        ignoreStrings: true,
       },
     ],
   },
