@@ -63,6 +63,6 @@
       "prettier --write",
       "eslint --cache --fix --ext .js,.ts"
     ],
-    "*.{js,css,md,yml,html}": "prettier --write"
+    "*.{css,md,yml,html}": "prettier --write"
   }
 }

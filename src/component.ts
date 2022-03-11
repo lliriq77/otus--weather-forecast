@@ -1,5 +1,5 @@
 export abstract class Component<State = Record<string, unknown>> {
-  state: State;
+  state: Partial<State> = {};
 
   el: HTMLElement;
 
