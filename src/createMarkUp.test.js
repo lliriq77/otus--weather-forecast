@@ -1,4 +1,4 @@
-import { createMarkUp } from "./createMarkUp";
+import { Weather } from "./createMarkUp";
 import { sleep } from "./sleep";
 
 describe("createMarkUp", () => {
@@ -28,15 +28,13 @@ describe("createMarkUp", () => {
   const el = document.querySelector("div");
 
   beforeAll(async () => {
-    await createMarkUp(el);
+    // eslint-disable-next-line
+    new Weather(el);
+    await sleep(0);
   });
 
   afterAll(() => {
     global.fetch = saveFetch;
-  });
-
-  it("is a function", () => {
-    expect(createMarkUp).toBeInstanceOf(Function);
   });
 
   it("has one input", () => {
@@ -63,7 +61,7 @@ describe("createMarkUp", () => {
     /* eslint-disable no-await-in-loop */
     for (let i = 0; i <= 20; i += 1) {
       el.querySelector("button").click();
-      await sleep();
+      await sleep(0);
     }
     /* eslint-enable no-await-in-loop */
     expect(el.querySelectorAll("span").length).toBe(10);
@@ -76,7 +74,7 @@ describe("createMarkUp", () => {
         bubbles: true,
       })
     );
-    await sleep();
+    await sleep(0);
 
     expect(el.querySelector("div").innerHTML).toMatch(/Moscow/);
   });

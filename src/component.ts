@@ -1,20 +1,26 @@
-export abstract class Component<State = Record<string, unknown>> {
+// eslint-disable-next-line
+export abstract class Component<State = Record<string, any>> {
   state: Partial<State> = {};
 
   el: HTMLElement;
 
   events: Record<string, (ev: Event) => void> = {};
 
-  constructor(el: HTMLElement) {
+  constructor(el: HTMLElement, state?: Partial<State>) {
     this.el = el;
+    this.state = state ?? {};
     setTimeout(() => {
-      this.el.innerHTML = this.render();
-      this.subscribeToEvents();
+      this.onMount();
     }, 0);
   }
 
   render() {
     return `${this.el.innerHTML}`;
+  }
+
+  onMount() {
+    this.el.innerHTML = this.render();
+    this.subscribeToEvents();
   }
 
   setState(obj: Partial<State>) {

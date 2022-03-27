@@ -23,14 +23,14 @@ describe("Component", () => {
     const text = `${Math.random()}`;
 
     class TestComponent extends Component {
-      text = text;
-
       render() {
-        return `<h1>${this.text}</h1>`;
+        return `<h1>${this.state.text}</h1>`;
       }
     }
     // eslint-disable-next-line
-    new TestComponent(el);
+    const testClass = new TestComponent(el, {
+      text,
+    });
     await sleep(0);
 
     expect(el.innerHTML).toBe(`<h1>${text}</h1>`);
@@ -40,16 +40,14 @@ describe("Component", () => {
     const text = `${Math.random()}`;
 
     class TestComponent extends Component {
-      state = {
-        text,
-      };
-
       render() {
         return `<h1>${this.state.text}</h1>`;
       }
     }
     // eslint-disable-next-line
-    new TestComponent(el);
+    new TestComponent(el, {
+      text,
+    });
     await sleep(0);
 
     expect(el.innerHTML).toBe(`<h1>${text}</h1>`);
@@ -60,16 +58,14 @@ describe("Component", () => {
     const b1 = `${Math.random()}`;
 
     class TestComponent extends Component {
-      state = {
-        a,
-        b: b1,
-      };
-
       render() {
         return `${JSON.stringify(this.state)}`;
       }
     }
-    const item = new TestComponent(el);
+    const item = new TestComponent(el, {
+      a,
+      b: b1,
+    });
     await sleep(0);
 
     expect(el.innerHTML).toBe(`${JSON.stringify({ a, b: b1 })}`);
@@ -83,13 +79,11 @@ describe("Component", () => {
     const value = Math.floor(Math.random() * 100);
 
     class TestComponent extends Component {
-      state = {
-        value,
-      };
+      increase = () =>
+        this.setState({ value: (this.state.value as number) + 1 });
 
-      increase = () => this.setState({ value: this.state.value + 1 });
-
-      decrease = () => this.setState({ value: this.state.value - 1 });
+      decrease = () =>
+        this.setState({ value: (this.state.value as number) - 1 });
 
       events = {
         "click@.inc": this.increase,
@@ -104,9 +98,11 @@ describe("Component", () => {
         `;
       }
     }
-    const item = new TestComponent(el);
-    // const increaseSpy = jest.spyOn(item, 'increase');
-    // const decreaseSpy = jest.spyOn(item, 'decrease');
+
+    const item = new TestComponent(el, {
+      value,
+    });
+
     await sleep(0);
 
     expect(item.state.value).toBe(value);
@@ -118,7 +114,6 @@ describe("Component", () => {
       new Event("click")
     );
 
-    // expect(increaseSpy).toHaveBeenCalled();
     expect(item.state.value).toBe(value + 1);
     expect((el.querySelector("h1") as HTMLDivElement).innerHTML).toBe(
       `${value + 1}`
