@@ -20,12 +20,12 @@ describe("createMarkUp", () => {
         });
       },
       ok: true,
-    })
+    } as Response)
   );
 
   const div = document.createElement("div");
   document.body.append(div);
-  const el = document.querySelector("div");
+  const el = document.querySelector("div") as HTMLDivElement;
 
   beforeAll(async () => {
     // eslint-disable-next-line
@@ -46,7 +46,7 @@ describe("createMarkUp", () => {
   });
 
   it("shows local weather", () => {
-    expect(el.querySelector("div").innerHTML).toMatch(/Moscow/);
+    expect(div.innerHTML).toMatch(/Moscow/);
   });
 
   it("has map", () => {
@@ -58,9 +58,10 @@ describe("createMarkUp", () => {
   });
 
   it("saves last 10 localStorage requests", async () => {
+    const btn = el.querySelector("button") as HTMLButtonElement;
     /* eslint-disable no-await-in-loop */
     for (let i = 0; i <= 20; i += 1) {
-      el.querySelector("button").click();
+      btn.click();
       await sleep(0);
     }
     /* eslint-enable no-await-in-loop */
@@ -68,7 +69,8 @@ describe("createMarkUp", () => {
   });
 
   it("shows current weather in history city after mouse click", async () => {
-    el.querySelector("div").innerHTML = "";
+    const elDiv = el.querySelector("div") as HTMLDivElement;
+    elDiv.innerHTML = "";
     el.querySelectorAll("span")[0].dispatchEvent(
       new MouseEvent("click", {
         bubbles: true,
@@ -76,6 +78,7 @@ describe("createMarkUp", () => {
     );
     await sleep(0);
 
-    expect(el.querySelector("div").innerHTML).toMatch(/Moscow/);
+    const elDiv2 = el.querySelector("div") as HTMLDivElement;
+    expect(elDiv2.innerHTML).toMatch(/Moscow/);
   });
 });

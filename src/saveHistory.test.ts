@@ -20,12 +20,12 @@ describe("saveHistory", () => {
         });
       },
       ok: true,
-    })
+    } as Response)
   );
 
   const div = document.createElement("div");
   document.body.append(div);
-  const el = document.querySelector("div");
+  const el = document.querySelector("div") as HTMLDivElement;
 
   afterAll(() => {
     global.fetch = saveFetch;
@@ -37,7 +37,7 @@ describe("saveHistory", () => {
     await sleep(0);
 
     jest.spyOn(Object.getPrototypeOf(window.localStorage), "setItem");
-    weather.saveHistory([1, 2]);
+    weather.saveHistory(["1", "2"]);
 
     expect(localStorage.setItem).toHaveBeenCalled();
   });

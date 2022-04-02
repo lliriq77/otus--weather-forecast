@@ -20,12 +20,12 @@ describe("readHistory", () => {
         });
       },
       ok: true,
-    })
+    } as Response)
   );
 
   const div = document.createElement("div");
   document.body.append(div);
-  const el = document.querySelector("div");
+  const el = document.querySelector("div") as HTMLDivElement;
 
   afterAll(() => {
     global.fetch = saveFetch;
