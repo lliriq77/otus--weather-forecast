@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
-  entry: resolve(__dirname, "./src/index.js"),
+  entry: resolve(__dirname, "./src/index.ts"),
   output: {
     filename: "bundle.js",
     path: resolve(`${__dirname}/dist`),
@@ -19,7 +19,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(j|t)s$/,
         exclude: /(node_modules)/,
         use: {
           loader: "babel-loader",
@@ -61,5 +61,8 @@ module.exports = {
     },
     compress: true,
     port: 9000,
+  },
+  resolve: {
+    extensions: [".js", ".ts"],
   },
 };
